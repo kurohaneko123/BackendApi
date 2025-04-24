@@ -20,8 +20,6 @@ class ZaloService {
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($order));
         curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/x-www-form-urlencoded']);
-        
-        // ✅ Thêm dòng dưới để bỏ qua kiểm tra chứng chỉ SSL (chỉ dùng khi sandbox/test)
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // ⚠️ KHÔNG dùng ở production
 
         $result = curl_exec($ch);
