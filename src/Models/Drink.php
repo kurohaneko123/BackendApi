@@ -1,21 +1,21 @@
 <?php
 namespace App\Models;
 
-use App\Config\Database; // ← import đúng namespace
+use App\Config\Database;
 
 class Drink {
-    private $conn;
+    private \PDO $conn;
 
     public function __construct() {
-        // Khởi tạo kết nối bằng lớp Database trong namespace App\Config
+        // Lấy PDO connection từ Database
         $db = new Database();
         $this->conn = $db->connect();
     }
 
+    /** Lấy toàn bộ đồ uống */
     public function getAll(): array {
-        $query = "SELECT * FROM drinks";
-        $stmt  = $this->conn->prepare($query);
+        $stmt = $this->conn->prepare("SELECT * FROM drinks");
         $stmt->execute();
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
     }
 }
