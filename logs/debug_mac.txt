@@ -1,0 +1,2 @@
+64548|250424_1745497944|user123|0|1745497944874|{"redirecturl":"https://yourdomain.com/thankyou"}|[{"itemid":"sp001","itemname":"Cà phê","itemprice":0,"itemquantity":1}]
+64548|250424_1745497945|user123|30000|1745497945137|{"redirecturl":"https://yourdomain.com/thankyou"}|[{"itemid":"sp001","itemname":"Cà phê","itemprice":30000,"itemquantity":1}]
