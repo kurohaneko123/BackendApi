@@ -1,7 +1,7 @@
 <?php
 namespace App\Models;
 
-use App\Config\Database;
+use Database;
 
 class Drink {
     private $conn;
