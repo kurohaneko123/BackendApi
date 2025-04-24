@@ -13,10 +13,10 @@ class Database {
     private ?PDO $conn = null;
 
     public function __construct() {
-        // Đọc cấu hình từ biến môi trường, hoặc dùng mặc định
-        $this->host = getenv('DB_HOST') ?: 'turntable.proxy.rlwy.net';
-        $this->port = intval(getenv('DB_PORT') ?: '29968');
-        $this->db_name = getenv('DB_NAME') ?: 'railway';
+        // Đọc từ biến môi trường, nếu không có sẽ dùng mặc định
+        $this->host     = getenv('DB_HOST')     ?: 'turntable.proxy.rlwy.net';
+        $this->port     = intval(getenv('DB_PORT')     ?: '29968');
+        $this->db_name  = getenv('DB_NAME')     ?: 'railway';
         $this->username = getenv('DB_USERNAME') ?: 'root';
         $this->password = getenv('DB_PASSWORD') ?: 'tuvsnycqhQmVsVDcUGdRpkoBkURjJAoT';
     }
@@ -28,9 +28,7 @@ class Database {
 
         $dsn = sprintf(
             'mysql:host=%s;port=%d;dbname=%s;charset=utf8mb4',
-            $this->host,
-            $this->port,
-            $this->db_name
+            $this->host, $this->port, $this->db_name
         );
 
         try {
@@ -39,19 +37,10 @@ class Database {
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                 PDO::ATTR_EMULATE_PREPARES   => false,
             ];
-
-            $this->conn = new PDO(
-                $dsn,
-                $this->username,
-                $this->password,
-                $options
-            );
-
+            $this->conn = new PDO($dsn, $this->username, $this->password, $options);
             return $this->conn;
         } catch (PDOException $e) {
-            // Log lỗi, tránh hiển thị trực tiếp ra client
             error_log('[Database] Connection failed: ' . $e->getMessage());
-            // Có thể ném exception lên tầng trên để xử lý hoặc trả response lỗi
             throw new \RuntimeException('Database Connection Failed');
         }
     }
